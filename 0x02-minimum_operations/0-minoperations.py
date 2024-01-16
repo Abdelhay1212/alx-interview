@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 ''' Minimum Operations '''
-import math
+from typing import List
 
 
-def prime_factors(n):
+def prime_factors(n: int) -> List[int]:
+    '''returns prime factors of n'''
     factors = []
     divisor = 2
 
@@ -17,8 +18,9 @@ def prime_factors(n):
 
 
 def minOperations(n: int) -> int:
-    '''Calculates the fewest number of operations needed to result in exactly n H characters'''
-    if n <= 0 or not isinstance(n, int):
+    '''Calculates the fewest number of operations needed
+    to result in exactly n H characters'''
+    if n <= 1 or not isinstance(n, int):
         return 0
 
     factors = set(prime_factors(n))
@@ -41,4 +43,4 @@ def minOperations(n: int) -> int:
 
         min_operations = min(min_operations, num_of_operations)
 
-    return min_operations
+    return int(min_operations)

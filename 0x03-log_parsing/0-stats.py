@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 ''' Log parsing '''
 
+import re
 import sys
 import signal
 
@@ -20,16 +21,22 @@ def print_stats(signum=None, frame=None) -> None:
 
 signal.signal(signal.SIGINT, print_stats)
 
+log_pattern = re.compile(
+    r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - \[(.*?)\] "GET /projects/260 '
+    r'HTTP/1\.1" (\d{3}) (\d+)$'
+)
+
 for line in sys.stdin:
     count += 1
     line = line.strip()
     parsed_line = line.split()
 
-    size = int(parsed_line[8])
-    total += size
-
-    code = parsed_line[7]
-    status_code[code] += 1
+    match = log_pattern.match(line)
+    if match:
+        size = int(parsed_line[8])
+        total += size
+        code = parsed_line[7]
+        status_code[code] += 1
 
     if count == 10:
         print_stats()

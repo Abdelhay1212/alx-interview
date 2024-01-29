@@ -34,3 +34,5 @@ for line in sys.stdin:
     if count == 9:
         print_stats()
         count = 0
+
+print_stats()

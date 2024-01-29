@@ -31,7 +31,7 @@ for line in sys.stdin:
     code = parsed_line[7]
     status_code[code] += 1
 
-    if count == 9:
+    if count == 10:
         print_stats()
         count = 0
 

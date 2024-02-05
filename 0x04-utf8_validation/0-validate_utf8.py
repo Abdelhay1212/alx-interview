@@ -3,33 +3,29 @@
 
 
 def validUTF8(data):
-    ''' vald utf-8 '''
+    ''' valid utf-8 '''
 
-    i = 0
-    while i < len(data):
-        if 0 <= data[i] < 128:
-            i += 1
-        elif data[i] > 128:
-            if bin(data[i])[2:].startswith('10'):
-                i += 1
-            elif bin(data[i])[2:].startswith('110'):
-                if not bin(data[i + 1])[2:].startswith('10'):
-                    return False
-                i += 2
-            elif bin(data[i])[2:].startswith('1110'):
-                stop = i + 2
-                while i <= stop:
-                    if not bin(data[i + 1])[2:].startswith('10'):
-                        return False
-                    i += 1
-            elif bin(data[i])[2:].startswith('11110'):
-                stop = i + 3
-                while i <= stop:
-                    if not bin(data[i + 1])[2:].startswith('10'):
-                        return False
-                    i += 1
-            else:
+    num_bytes = 0
+
+    mask1 = 1 << 7
+    mask2 = 1 << 6
+
+    for byte in data:
+        mask = 1 << 7
+        if num_bytes == 0:
+            while mask & byte:
+                num_bytes += 1
+                mask = mask >> 1
+
+            if num_bytes == 0:
+                continue
+
+            if num_bytes == 1 or num_bytes > 4:
                 return False
         else:
-            return False
-    return True
+            if not (byte & mask1 and not (byte & mask2)):
+                return False
+
+        num_bytes -= 1
+
+    return num_bytes == 0

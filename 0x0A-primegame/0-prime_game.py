@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 ''' Prime Game '''
-from typing import Union, List
 
 
-def isWinner(x: int, nums: List[int]) -> Union[str, None]:
+def isWinner(x, nums):
     '''return the winner or None'''
-    def countPrimes(n: int) -> bool:
+    def countPrimes(n):
         ''''''
         if n < 2:
             return False

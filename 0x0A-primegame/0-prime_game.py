@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 ''' Prime Game '''
+from typing import Union, List
 
 
-def isWinner(x, nums):
+def isWinner(x: int, nums: List[int]) -> Union[str, None]:
     '''return the winner or None'''
-    def countPrimes(n):
+    def countPrimes(n: int) -> bool:
         ''''''
         if n < 2:
             return False
@@ -19,8 +20,8 @@ def isWinner(x, nums):
         return prime.count(True)
 
     ben, maria = 0, 0
-    for num in nums:
-        count = countPrimes(num)
+    for i in range(x):
+        count = countPrimes(nums[i])
         if count % 2 == 0:
             ben += 1
         else:

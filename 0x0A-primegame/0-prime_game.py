@@ -12,7 +12,7 @@ def isWinner(x, nums):
         prime = [True] * (n+1)
         prime[0] = prime[1] = False
         while p * p <= n:
-            if prime[p] == True:
+            if prime[p] is True:
                 for i in range(p * p, n+1, p):
                     prime[i] = False
             p += 1
